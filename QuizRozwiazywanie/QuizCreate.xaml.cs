@@ -32,13 +32,13 @@ namespace QuizRozwiazywanie
 
         private void OnProcessExit(object sender, EventArgs e)
         {
-            Quiz quiz = new Quiz();
+            Quiz quiz = new Quiz("asdasdasd");
 
             foreach (Question question in listBox.Items)
             {
                 quiz.AddQuestion(question);
             }
-            quiz.saveToFile();
+            quiz.saveToFile("C:/Users/Karol/Documents/GitHub/QuizProject/QuizRozwiazywanie/QuizFiles/test2.json");
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -47,7 +47,8 @@ namespace QuizRozwiazywanie
             {
                 if (isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox))
                 {
-                    Question question = new Question(ContentTextBox.Text.ToString(), prepareAnswerDict(), new List<char>('a'));
+                    List<char> test = new List<char>('a');
+                    Question question = new Question(ContentTextBox.Text.ToString(), prepareAnswerDict(), test);
 
                     listBox.Items.Add(question);
 

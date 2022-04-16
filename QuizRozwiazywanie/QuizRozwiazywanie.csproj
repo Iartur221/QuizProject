@@ -299,6 +299,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
+    <None Include="QuizFiles\test2.json" />
     <None Include="QuizFiles\test.json" />
   </ItemGroup>
   <ItemGroup>

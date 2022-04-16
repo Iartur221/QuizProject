@@ -20,18 +20,10 @@ namespace QuizRozwiazywanie
             this.questions = new List<Question>();
             this.Name = "";
         }
-        public Quiz(string name, List<Question> questions)
-        {
-            this.Name = name;
-            this.questions = questions;
-            string jsonVar = JsonSerializer.Serialize(this.questions);
-            File.WriteAllText(this.Name + ".json", jsonVar);
-        }
         public Quiz(string name)
         {
+            this.questions = new List<Question>();
             this.Name = name;
-            string jsonString = File.ReadAllText(this.Name + ".json");
-            this.questions = JsonSerializer.Deserialize<List<Question>>(jsonString);
         }
         public void NextQuestion()
         {
@@ -43,10 +35,19 @@ namespace QuizRozwiazywanie
         public string getCurrentContent() => this.current.Content;
         public Dictionary<char, string> getCurrentQuestions() => this.current.Questions;
         public void AddQuestion(Question question) => this.questions.Add(question);
-        public void saveToFile()
+        public void saveToFile(string file = "")
         {
+            if (file == "")
+                file = this.Name + ".json";
             string jsonVar = JsonSerializer.Serialize(this.questions);
-            File.WriteAllText(this.Name + ".json", jsonVar);
+            File.WriteAllText(file, jsonVar);
+        }
+        public void loadFromFile(string file = "")
+        {
+            if (file == "")
+                file = this.Name + ".json";
+            string jsonVar = File.ReadAllText(file);
+            this.questions = JsonSerializer.Deserialize<List<Question>>(jsonVar);
         }
     }
 }
