@@ -21,9 +21,22 @@ namespace QuizRozwiazywanie
 
         public override string ToString()
         {
-            return $"Answer: {Answer}, Content: {Content}, Questions: {Questions}";
+            return $"Content: {Content}, Questions: {this.getQuestionsAsString()}, Answer: {this.getAnswersAsString()}";
         }
-
+        private string getAnswersAsString(){
+            string answers = "";
+            foreach(char answer in this.Answer){
+                answers += answer;
+            }
+            return answers;
+        }
+        private string getQuestionsAsString(){
+            string questions = "";
+            foreach(char question in this.Questions.Keys){
+                questions += question + ": " + this.Questions[question] + ", ";
+            }
+            return questions;
+        }
 
     }
 }

@@ -42,13 +42,13 @@
 
 
         <StackPanel Grid.Row="5" Margin="57,20,57,0" Grid.ColumnSpan="3">
-            <Button Content="Add" Name="addButton"/>
-            <Button Content="Delete" Name="deleteButton"/>
-            <Button Content="Modify" Name="modifyButton"/>
+            <Button Content="Add" Name="addButton" Click="addButton_Click"/>
+            <Button Content="Delete" Name="deleteButton" Click="deleteButton_Click"/>
+            <Button Content="Modify" Name="modifyButton" Click="modifyButton_Click"/>
         </StackPanel>
 
         <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Orientation="Vertical" Margin="10,0,0,0" Grid.ColumnSpan="2">
-            <ListBox Name="listBox" Margin="10"/>
+            <ListBox Name="listBox" Margin="10" SelectionChanged="listBoxSelectionChanged"/>
         </StackPanel>
 
     </Grid>

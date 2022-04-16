@@ -67,11 +67,13 @@ namespace QuizRozwiazywanie
         }
         private Dictionary<char,string> prepareAnswerDict()
         {
-            Dictionary<char, string> answers = new Dictionary<char, string>();
-            answers.Add('a', ATextBox.Text);
-            answers.Add('b', BTextBox.Text);
-            answers.Add('c', CTextBox.Text);
-            answers.Add('d', DTextBox.Text);
+            Dictionary<char, string> answers = new Dictionary<char, string>
+            {
+                { 'a', ATextBox.Text },
+                { 'b', BTextBox.Text },
+                { 'c', CTextBox.Text },
+                { 'd', DTextBox.Text }
+            };
             return answers;
         }
 
