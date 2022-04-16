@@ -6,15 +6,20 @@ using System.Threading.Tasks;
 using System.Text.Json;
 using System.IO;
 
-namespace QuizRozwiazywanie.Model
+namespace QuizRozwiazywanie
 {
     internal class Quiz
     {
         public string Name { get; set; }
-        public List<Question> questions;
+        private List<Question> questions;
         private Question current;
         private Random random;
 
+        public Quiz()
+        {
+            this.questions = new List<Question>();
+            this.Name = "";
+        }
         public Quiz(string name, List<Question> questions)
         {
             this.Name = name;
@@ -37,5 +42,11 @@ namespace QuizRozwiazywanie.Model
         public bool CheckAnswer(char answer) => this.current.Answer.Contains(answer);
         public string getCurrentContent() => this.current.Content;
         public Dictionary<char, string> getCurrentQuestions() => this.current.Questions;
+        public void AddQuestion(Question question) => this.questions.Add(question);
+        public void saveToFile()
+        {
+            string jsonVar = JsonSerializer.Serialize(this.questions);
+            File.WriteAllText(this.Name + ".json", jsonVar);
+        }
     }
 }

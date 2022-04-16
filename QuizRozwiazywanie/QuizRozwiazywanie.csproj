@@ -239,6 +239,9 @@
     </ApplicationDefinition>
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\Quiz.cs" />
+    <Compile Include="TextBoxWithErrorProvider.xaml.cs">
+      <DependentUpon>TextBoxWithErrorProvider.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BindCreate.cs" />
     <Compile Include="ViewModel\BindSolve.cs" />
     <Compile Include="ViewModel\RelayCommands.cs" />
@@ -267,6 +270,10 @@
     <Page Include="QuizSolve.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="TextBoxWithErrorProvider.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
     </Page>
   </ItemGroup>
   <ItemGroup>

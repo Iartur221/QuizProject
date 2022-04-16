@@ -4,7 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizRozwiazywanie.Model
+namespace QuizRozwiazywanie
 {
     internal class Question
     {
