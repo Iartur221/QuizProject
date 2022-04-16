@@ -7,10 +7,49 @@
         mc:Ignorable="d"
         Title="Tworzenie Quizu" Height="450" Width="800">
     <Grid>
+        <Grid.ColumnDefinitions>
+            <ColumnDefinition Width="114*"/>
+            <ColumnDefinition Width="229*"/>
+            <ColumnDefinition Width="57*"/>
+            <ColumnDefinition Width="398*"/>
+            <ColumnDefinition Width="2*"/>
+        </Grid.ColumnDefinitions>
         <Grid.RowDefinitions>
             <RowDefinition/>
             <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition/>
+            <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">Trećć:</TextBlock>
+
+        <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">A:</TextBlock>
+
+        <TextBlock Grid.Row="2" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">B:</TextBlock>
+
+        <TextBlock Grid.Row="3" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">C:</TextBlock>
+
+        <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">D:</TextBlock>
+
+        <local:TextBoxWithErrorProvider Grid.Row="0" x:Name="ContentTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
+
+        <local:TextBoxWithErrorProvider Grid.Row="1" x:Name="ATextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
+        <local:TextBoxWithErrorProvider Grid.Row="2" x:Name="BTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
+        <local:TextBoxWithErrorProvider Grid.Row="3" x:Name="CTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
+        <local:TextBoxWithErrorProvider Grid.Row="4" x:Name="DTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
+
+
+
+        <StackPanel Grid.Row="5" Margin="57,20,57,0" Grid.ColumnSpan="3">
+            <Button Content="Add" Name="addButton" Click="addButton_Click"/>
+            <Button Content="Delete" Name="deleteButton" Click="deleteButton_Click"/>
+            <Button Content="Modify" Name="modifyButton" Click="modifyButton_Click"/>
+        </StackPanel>
+
+        <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Orientation="Vertical" Margin="10,0,0,0" Grid.ColumnSpan="2">
+            <ListBox Name="listBox" Margin="10" SelectionChanged="listBoxSelectionChanged"/>
+        </StackPanel>
 
     </Grid>
 </Window>
