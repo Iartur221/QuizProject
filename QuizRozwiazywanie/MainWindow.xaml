@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <Window.Resources>
+        <Style TargetType="{x:Type Window}">
+            <Setter Property="FontFamily" Value="Cambria"/>
+        </Style>
         <Style TargetType="Button">
             <Setter Property="FontSize"
                     Value="40"/>

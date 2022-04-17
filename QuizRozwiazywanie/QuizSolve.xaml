@@ -6,7 +6,56 @@
         xmlns:local="clr-namespace:QuizRozwiazywanie"
         mc:Ignorable="d"
         Title="Rozwiązywanie Quizu" Height="450" Width="800">
+    <Window.Resources>
+        <Style TargetType="Button">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="BorderBrush" Value="AliceBlue"/>
+            <Setter Property="BorderThickness" Value="5,5,5,5"/>
+            <Setter Property="FontFamily" Value="Segoe UI"/>
+        </Style>
+        <Style TargetType="TextBlock">
+            <Setter Property="Background" Value="Transparent"/>
+            <Setter Property="FontSize" Value="40"/>
+            <Setter Property="TextAlignment" Value="Center"/>
+            <Setter Property="VerticalAlignment" Value="Center"/>
+        </Style>
+    </Window.Resources>
     <Grid>
-        
+        <Grid.Background>
+            <ImageBrush ImageSource="/QuizRozwiazywanie;component/Textures/backgroundImage.jpg" Stretch="Fill"/>
+        </Grid.Background>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="2*"/>
+            <RowDefinition Height="3*"/>
+        </Grid.RowDefinitions>
+        <TextBlock Grid.Row="0"
+                   Grid.Column="0"
+                   Text="Tu bd pytanie"
+                   x:Name="displayQuestion"/>
+        <Grid Name ="Answers" Grid.Row="1">
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="*"/>
+            </Grid.RowDefinitions>
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="3*"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="3*"/>
+            </Grid.ColumnDefinitions>
+            <Button Grid.Column="0"
+                    Grid.Row="0"
+                    Content ="A"/>
+            <Button Grid.Column="2"
+                    Grid.Row="0"
+                    Content ="B"/>
+            <Button Grid.Column="0"
+                    Grid.Row="1"
+                    Content ="C"/>
+            <Button Grid.Column="2"
+                    Grid.Row="3"
+                    Content ="D"/>
+        </Grid>
     </Grid>
+    
 </Window>

@@ -7,6 +7,9 @@
         mc:Ignorable="d"
         Title="Tworzenie Quizu" Height="450" Width="800">
     <Grid>
+        <Grid.Background>
+            <ImageBrush ImageSource="/QuizRozwiazywanie;component/Textures/backgroundCreate.png" Stretch="Fill"/>
+        </Grid.Background>
         <Grid.ColumnDefinitions>
             <ColumnDefinition Width="114*"/>
             <ColumnDefinition Width="229*"/>
@@ -22,7 +25,7 @@
             <RowDefinition/>
             <RowDefinition Height="2*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">Trećć:</TextBlock>
+        <TextBlock Grid.Row="0" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">Treść:</TextBlock>
 
         <TextBlock Grid.Row="1" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">A:</TextBlock>
 
