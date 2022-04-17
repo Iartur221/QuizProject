@@ -245,13 +245,13 @@
     <Compile Include="ViewModel\BindCreate.cs" />
     <Compile Include="ViewModel\BindSolve.cs" />
     <Compile Include="ViewModel\RelayCommands.cs" />
-    <Compile Include="QuizCreate.xaml.cs">
+    <Compile Include="View\QuizCreate.xaml.cs">
       <DependentUpon>QuizCreate.xaml</DependentUpon>
     </Compile>
-    <Compile Include="QuizSolve.xaml.cs">
+    <Compile Include="View\QuizSolve.xaml.cs">
       <DependentUpon>QuizSolve.xaml</DependentUpon>
     </Compile>
-    <Page Include="MainWindow.xaml">
+    <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -259,15 +259,15 @@
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="MainWindow.xaml.cs">
+    <Compile Include="View\MainWindow.xaml.cs">
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="QuizCreate.xaml">
+    <Page Include="View\QuizCreate.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="QuizSolve.xaml">
+    <Page Include="View\QuizSolve.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
