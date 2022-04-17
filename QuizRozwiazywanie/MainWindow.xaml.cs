@@ -23,6 +23,11 @@ namespace QuizRozwiazywanie
         public MainWindow()
         {
             InitializeComponent();
+            Style = (Style)FindResource(typeof(Window));
+            FrameworkElement.StyleProperty.OverrideMetadata(typeof(Window), new FrameworkPropertyMetadata
+            {
+                DefaultValue = FindResource(typeof(Window))
+            });
         }
 
         private void ChangeWindow1(object sender, RoutedEventArgs e)
