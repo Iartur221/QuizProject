@@ -21,7 +21,12 @@ namespace QuizRozwiazywanie
             this.Content = content;
             this.Questions = questions;
         }
-
+        public Question()
+        {
+            this.Answer = new List<char>();
+            this.Content = string.Empty;
+            this.Questions = new Dictionary<char, string>();
+        }
         public override string ToString()
         {
             return $"Content: {Content}, Questions: {this.getQuestionsAsString()}, Answer: {this.getAnswersAsString()}";

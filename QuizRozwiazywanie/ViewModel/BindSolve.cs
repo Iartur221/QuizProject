@@ -26,6 +26,14 @@ namespace QuizRozwiazywanie
         {
             viewQuiz.NextQuestion();
         }
+        public BindSolve copy()
+        {
+            return this;
+        }
+        public string name()
+        {
+            return viewQuiz.Name;
+        }
 
         public BindSolve()
         {

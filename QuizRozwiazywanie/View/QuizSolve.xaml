@@ -29,10 +29,25 @@
             <RowDefinition Height="2*"/>
             <RowDefinition Height="3*"/>
         </Grid.RowDefinitions>
-        <TextBlock Grid.Row="0"
-                   Grid.Column="0"
+        <Grid Name ="Upper" Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="171*"/>
+                <ColumnDefinition Width="451*"/>
+                <ColumnDefinition Width="171*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition/>
+                <RowDefinition/>
+            </Grid.RowDefinitions>
+            <TextBlock Grid.Row="0" Grid.RowSpan="2"
+                   Grid.Column="1" TextWrapping="Wrap"
                    Text="{Binding questionout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
-                   x:Name="displayQuestion"/>
+                   x:Name="displayQuestion" Margin="0,60,0,0" VerticalAlignment="Top" Height="53"/>
+            <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
+                      ItemsSource="{Binding Path=DataContext.listaout, RelativeSource={RelativeSource AncestorType=Window}}"
+                      SelectedItem="{Binding boundquiz, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
+            </ComboBox>
+        </Grid>
         <Grid Name ="Answers" Grid.Row="1">
             <Grid.RowDefinitions>
                 <RowDefinition Height="*"/>
@@ -57,8 +72,9 @@
                     Content ="{Binding answerDout, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="1"
                     Grid.Row="0"
-                    Content ="Menu"
-                    Background="Lime"/>
+                    Content ="{Binding Path=StartStop, UpdateSourceTrigger=PropertyChanged}"
+                    Background="Lime"
+                    Command="{Binding Path=DataContext.StartStop_Click, RelativeSource={RelativeSource AncestorType=Window}}"/>
             <Button Grid.Column="1"
                     Grid.Row="1"
                     Content ="Next"
@@ -66,5 +82,5 @@
                     Command="{Binding Path=DataContext.Next_Click, RelativeSource={RelativeSource AncestorType=Window}}"/>
         </Grid>
     </Grid>
-    
+
 </Window>

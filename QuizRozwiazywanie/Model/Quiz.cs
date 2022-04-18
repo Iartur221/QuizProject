@@ -19,6 +19,7 @@ namespace QuizRozwiazywanie
         {
             this.questions = new List<Question>();
             this.Name = "";
+            this.current = new Question();
         }
         public Quiz(string name)
         {

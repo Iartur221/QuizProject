@@ -4,6 +4,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 using System.IO;
+using System.Collections.ObjectModel;
 
 namespace QuizRozwiazywanie
 {
@@ -11,10 +12,12 @@ namespace QuizRozwiazywanie
     {
 
         // lista wszystkich quizow
-        private List<BindSolve> quizzes;
+        private ObservableCollection<BindSolve> quizzes;
         private string[] lista;
+        private ObservableCollection<string> listanazw;
+        private string quizname;
         //Stan rozwiazywanego quizu
-        //private BindSolve inWorkQuiz;
+        private BindSolve inWorkQuiz;
         //chosen quizstate
         private BindSolve selectedQuiz;
         //wyswietlane odpowiedzi
@@ -25,6 +28,7 @@ namespace QuizRozwiazywanie
         //wyswietlane pytanie
         private string question;
         private RelayCommand nextQuestion;
+        private RelayCommand startstopquiz;
 
 
 
@@ -33,39 +37,53 @@ namespace QuizRozwiazywanie
         public ViewModelSolve()
         {
             //wczytanie quizow z plikow do listy
-            quizzes = new List<BindSolve>();
+            listanazw = new ObservableCollection<string>();
+            quizzes = new ObservableCollection<BindSolve>();
             lista = Directory.GetFiles("C:/Users/artur/source/repos/QuizRozwiazywanie/QuizRozwiazywanie/QuizFiles/");
             foreach (string var in lista)
             {
                 quizzes.Add(new BindSolve(var,var));
             }
-
-            try
+            for(int i = 0; i < lista.Length; i++)
             {
-                //already a state
-                //select the 1st
-                selectedQuiz = quizzes[0];
+                listanazw.Add((Path.GetFileName(lista[i])).Remove(Path.GetFileName(lista[i]).Length - 5));
             }
-            catch (Exception)
-            {
-                //wywal okno z informacją o braku quizow
-                //this.window.close()
-            }
-            currentQuiz = selectedQuiz;  
+            inWorkQuiz = new BindSolve();
+            selectedQuiz = new BindSolve();
+            StartStop = startstop;
+            currentQuiz = new BindSolve();
         }
-        public BindSolve currentQuiz { get {
-                return currentQuiz; }
+
+        #region zmienne do kontroli widoku
+
+        //bierze tylko od selected quiz, operowac na selected quiz
+        public BindSolve currentQuiz
+        {
+            get
+            {
+                return currentQuiz;
+            }
             set
             {
-                answerA = answerDict['a'];
-                answerB = answerDict['b'];
-                answerC = answerDict['c'];
-                answerD = answerDict['d'];
-                question = selectedQuiz.question;
+                if (answerDict.ContainsKey('a'))
+                {
+                    answerA = answerDict['a'];
+                    answerB = answerDict['b'];
+                    answerC = answerDict['c'];
+                    answerD = answerDict['d'];
+                    question = selectedQuiz.question;
+                }
+                else
+                {
+                    answerA = String.Empty;
+                    answerB = String.Empty;
+                    answerC = String.Empty;
+                    answerD = String.Empty;
+                    question = "Witamy w aplikacji quiz";
+                }
             }
         }
-
-        #region funkcje i zmienne do kontroli widoku
+        public string startstop = "Start";
         public Dictionary<char, string> answerDict
         {
             get { return selectedQuiz.AnswerList; }
@@ -100,8 +118,36 @@ namespace QuizRozwiazywanie
                 onPropertyChanged("questionout");
             }
         }
+        public string StartStop
+        {
+            get { return startstop; }
+            set { startstop = value;
+                onPropertyChanged("StartStop");
+            }
+        }
+        public ObservableCollection<string> listaout
+        {
+            get { return listanazw; }
+        }
+        public string boundquiz
+        {
+            get { return quizname; }
+            set { //zwraca stringa z nazwa quizu
+                if(value != null)
+                {
+                    quizname = value;
 
-        //przyporzadkowanie funkcji do komendy
+                onPropertyChanged("boundquiz");
+                }
+            }
+        }
+
+        #endregion
+
+        #region
+        ///<summary>
+        ///przyporzadkowanie funkcji do komendy
+        ///</summary>
         public RelayCommand Next_Click
         {
             get
@@ -110,8 +156,10 @@ namespace QuizRozwiazywanie
                 {
                     nextQuestion = new RelayCommand(argument =>
                     {
-                        States.NextQuestion(selectedQuiz);
-                        currentQuiz = selectedQuiz;
+                        BindSolve Copied = new BindSolve();
+                        Copied = selectedQuiz;
+                        States.NextQuestion(Copied);
+                        currentQuiz = Copied;
                         questionout = question;
                         answerAout = answerA;
                         answerBout = answerB;
@@ -127,7 +175,35 @@ namespace QuizRozwiazywanie
             }
 
         }
-        
+        public RelayCommand StartStop_Click
+        {
+            get
+            {
+                if (startstopquiz == null)
+                {
+                    startstopquiz = new RelayCommand(argument =>
+                    {
+                        int index = listanazw.IndexOf(quizname);
+                        inWorkQuiz = quizzes[index];
+                        //pobierz wartosc startstop, w razie startu laduj quiz w razie stopu wywal
+                        BindSolve Copied = new BindSolve();
+                        Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied);
+                        string copy = States.StartOrMenu(startstop); // zmien stringa startstop
+                        startstop = copy;
+                        selectedQuiz = Copied;
+                        currentQuiz = selectedQuiz;
+                        StartStop = startstop;
+                        questionout = question;
+                        answerAout = answerA;
+                        answerBout = answerB;
+                        answerCout = answerC;
+                        answerDout = answerD;
+
+                    }, argument => true);
+                }
+                return startstopquiz;
+            }
+        }
 
         #endregion
 
