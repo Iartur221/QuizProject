@@ -57,11 +57,11 @@ namespace QuizRozwiazywanie
                 return currentQuiz; }
             set
             {
-                answerAout = answerDict['a'];
-                answerBout = answerDict['b'];
-                answerCout = answerDict['c'];
-                answerDout = answerDict['d'];
-                questionout = selectedQuiz.question;
+                answerA = answerDict['a'];
+                answerB = answerDict['b'];
+                answerC = answerDict['c'];
+                answerD = answerDict['d'];
+                question = selectedQuiz.question;
             }
         }
 
@@ -73,31 +73,31 @@ namespace QuizRozwiazywanie
         public string answerAout
         {  get { return answerA; }
            set { answerA = value;
-                onPropertyChanged(answerAout);
+                onPropertyChanged("answerAout");
             }
         }
         public string answerBout 
         { get { return answerB; }
           set { answerB = value;
-                onPropertyChanged(answerBout);
+                onPropertyChanged("answerBout");
             }
         }
         public string answerCout 
         { get { return answerC; }
           set { answerC = value;
-                onPropertyChanged(answerCout);
+                onPropertyChanged("answerCout");
             }
         }
         public string answerDout 
         { get { return answerD; }
           set { answerD = value;
-                onPropertyChanged(answerDout);
+                onPropertyChanged("answerDout");
             }
         }    
         public string questionout 
         { get { return question; }
           set { question = value;
-                onPropertyChanged(questionout);
+                onPropertyChanged("questionout");
             }
         }
 
@@ -111,6 +111,12 @@ namespace QuizRozwiazywanie
                     nextQuestion = new RelayCommand(argument =>
                     {
                         States.NextQuestion(selectedQuiz);
+                        currentQuiz = selectedQuiz;
+                        questionout = question;
+                        answerAout = answerA;
+                        answerBout = answerB;
+                        answerCout = answerC;
+                        answerDout = answerD;
                     }, argument => true);
                 }
                 return nextQuestion;
@@ -118,7 +124,6 @@ namespace QuizRozwiazywanie
             set
             {
                 currentQuiz = selectedQuiz;
-                onPropertyChanged(currentQuiz.question);
             }
 
         }
