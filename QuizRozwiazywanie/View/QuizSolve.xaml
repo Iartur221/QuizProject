@@ -31,7 +31,7 @@
         </Grid.RowDefinitions>
         <TextBlock Grid.Row="0"
                    Grid.Column="0"
-                   Text="Tu bd pytanie"
+                   Text="{Binding questionout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                    x:Name="displayQuestion"/>
         <Grid Name ="Answers" Grid.Row="1">
             <Grid.RowDefinitions>
@@ -45,16 +45,25 @@
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
                     Grid.Row="0"
-                    Content ="A"/>
+                    Content ="{Binding answerAout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="2"
                     Grid.Row="0"
-                    Content ="B"/>
+                    Content ="{Binding answerBout, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="0"
                     Grid.Row="1"
-                    Content ="C"/>
+                    Content ="{Binding answerCout, UpdateSourceTrigger=PropertyChanged}"/>
             <Button Grid.Column="2"
                     Grid.Row="3"
-                    Content ="D"/>
+                    Content ="{Binding answerDout, UpdateSourceTrigger=PropertyChanged}"/>
+            <Button Grid.Column="1"
+                    Grid.Row="0"
+                    Content ="Menu"
+                    Background="Lime"/>
+            <Button Grid.Column="1"
+                    Grid.Row="1"
+                    Content ="Next"
+                    Background="CadetBlue"
+                    Command="{Binding Path=DataContext.Next_Click, RelativeSource={RelativeSource AncestorType=Window}}"/>
         </Grid>
     </Grid>
     

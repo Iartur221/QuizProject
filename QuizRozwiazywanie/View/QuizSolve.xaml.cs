@@ -22,6 +22,8 @@ namespace QuizRozwiazywanie
         public QuizSolve()
         {
             InitializeComponent();
+            this.DataContext = new ViewModelSolve();
         }
+
     }
 }

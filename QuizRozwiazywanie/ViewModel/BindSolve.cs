@@ -4,9 +4,39 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace QuizRozwiazywanie.ViewModel
+
+namespace QuizRozwiazywanie
 {
-    internal class BindSolve
+    //Klasa modelu widoku udostępniąjąca widokowi odpowiednie własności 
+    public class BindSolve : ChangeProperty
     {
+        private Quiz viewQuiz;
+        
+        public Dictionary<char, string> AnswerList {
+            get
+            {
+                return viewQuiz.getCurrentQuestions();
+            }
+        }
+        public string question
+        {
+            get { return viewQuiz.getCurrentContent(); }
+        }
+        public void next()
+        {
+            viewQuiz.NextQuestion();
+        }
+
+        public BindSolve()
+        {
+            viewQuiz = new Quiz();
+        }
+        public BindSolve(string name, string path)
+        {
+            viewQuiz = new Quiz(name);
+            viewQuiz.loadFromFile(path);
+        }
+        
+
     }
 }

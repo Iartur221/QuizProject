@@ -8,8 +8,11 @@ namespace QuizRozwiazywanie
 {
     internal class Question
     {
+        //tresc pytania
         public string Content { get; set; }
+        //mozliwe odpowiedzi
         public Dictionary<char, string> Questions { get; set; }
+        //czy odp prawdziwa
         public List<char> Answer { get; set; }
 
         public Question(string content, Dictionary<char, string> questions, List<char> answer)

@@ -6,9 +6,11 @@ using System.Threading.Tasks;
 
 namespace QuizRozwiazywanie
 {
-    //Klasa łącząca widok z oknem tworzenia
-    internal class BindCreate
+    public static class States
     {
-
+        public static void NextQuestion(BindSolve state)
+        {
+            state.next();
+        }
     }
 }
