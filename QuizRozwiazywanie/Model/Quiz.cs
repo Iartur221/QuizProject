@@ -27,12 +27,17 @@ namespace QuizRozwiazywanie
         }
         public void NextQuestion()
         {
+            if (this.questions.Count == 0) return;
+            random = new Random();
             int rng = this.random.Next(0, this.questions.Count);
             this.current = this.questions[rng];
             this.questions.RemoveAt(rng);
         }
+        //sprawdz czy prawdziwe
         public bool CheckAnswer(char answer) => this.current.Answer.Contains(answer);
+        //obecne pytanie
         public string getCurrentContent() => this.current.Content;
+        //obecne odpowiedzi
         public Dictionary<char, string> getCurrentQuestions() => this.current.Questions;
         public void AddQuestion(Question question) => this.questions.Add(question);
         public void saveToFile(string file = "")
@@ -48,6 +53,7 @@ namespace QuizRozwiazywanie
                 file = this.Name + ".json";
             string jsonVar = File.ReadAllText(file);
             this.questions = JsonSerializer.Deserialize<List<Question>>(jsonVar);
+            NextQuestion();
         }
     }
 }

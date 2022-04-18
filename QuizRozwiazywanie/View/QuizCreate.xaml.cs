@@ -38,7 +38,7 @@ namespace QuizRozwiazywanie
             {
                 quiz.AddQuestion(question);
             }
-            quiz.saveToFile("C:/Users/Karol/Documents/GitHub/QuizProject/QuizRozwiazywanie/QuizFiles/test2.json");
+            quiz.saveToFile("C:/Users/artur/source/repos/QuizRozwiazywanie/QuizRozwiazywanie/QuizFiles/test.json");
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
