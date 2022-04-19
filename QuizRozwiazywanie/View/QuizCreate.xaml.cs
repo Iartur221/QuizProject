@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using System.IO;
 
 namespace QuizRozwiazywanie
 {
@@ -38,7 +39,8 @@ namespace QuizRozwiazywanie
             {
                 quiz.AddQuestion(question);
             }
-            quiz.saveToFile("C:/Users/artur/source/repos/QuizRozwiazywanie/QuizRozwiazywanie/QuizFiles/test.json");
+            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\test3.json";
+            quiz.saveToFile(path);
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)

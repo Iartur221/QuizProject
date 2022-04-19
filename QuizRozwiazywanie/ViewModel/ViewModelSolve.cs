@@ -36,10 +36,11 @@ namespace QuizRozwiazywanie
 
         public ViewModelSolve()
         {
+            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles";
             //wczytanie quizow z plikow do listy
             listanazw = new ObservableCollection<string>();
             quizzes = new ObservableCollection<BindSolve>();
-            lista = Directory.GetFiles("C:/Users/artur/source/repos/QuizRozwiazywanie/QuizRozwiazywanie/QuizFiles/");
+            lista = Directory.GetFiles(path);
             foreach (string var in lista)
             {
                 quizzes.Add(new BindSolve(var,var));
