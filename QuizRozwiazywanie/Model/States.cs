@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
+using System.Timers;
 
 namespace QuizRozwiazywanie
 {
@@ -10,6 +11,7 @@ namespace QuizRozwiazywanie
     /// <summary>
     /// klasa funkcji pomocnicze dla viewmodelu
     /// </summary>
+    
     public static class States
     {
         public static void NextQuestion(BindSolve state)
@@ -26,16 +28,18 @@ namespace QuizRozwiazywanie
              return content = "Start";
         }
 
-        public static BindSolve Changestartbutton(string content, BindSolve selected, BindSolve current)
+        public static BindSolve Changestartbutton(string content, BindSolve selected, BindSolve current, Timer timer)
         {
             if (content == "Start")
             {
                 current = selected;
+                timer.Start();
                 return current;
             }
             else
             {
                 //zwroc pusty quiz
+                timer.Stop();
                 return current = new BindSolve();
             }
         }
@@ -44,6 +48,9 @@ namespace QuizRozwiazywanie
         {
             return content.copy();
         }
+
+        
+
     }
     #endregion
 }
