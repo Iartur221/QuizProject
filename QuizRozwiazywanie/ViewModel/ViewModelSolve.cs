@@ -11,7 +11,7 @@ namespace QuizRozwiazywanie
 {
     public class ViewModelSolve : ChangeProperty
     {
-
+        #region zmienne prywatne
         // lista wszystkich quizow
         private ObservableCollection<BindSolve> quizzes;
         private string[] lista;
@@ -21,23 +21,25 @@ namespace QuizRozwiazywanie
         private BindSolve inWorkQuiz;
         //chosen quizstate
         private BindSolve selectedQuiz;
-        //wyswietlane odpowiedzi
+        //buttons
         private string answerA;
         private string answerB;
         private string answerC;
         private string answerD;
+        private string startstop = "Start";
+        private string next = "";
         //wyswietlane pytanie
         private string question;
         private RelayCommand nextQuestion;
         private RelayCommand startstopquiz;
+        //timer
         private Timer timer;
         private int seconds;
         private int minutes;
-        string time;
+        private string time;
+        #endregion
 
-
-
-        //polecenia dla trybu tworzenia
+        #region konstruktor
 
         public ViewModelSolve()
         {
@@ -61,10 +63,11 @@ namespace QuizRozwiazywanie
             Timer timer = new Timer(1000);
             
         }
+        #endregion
 
         #region zmienne do kontroli widoku
 
-        //bierze tylko od selected quiz, operowac na selected quiz
+
         public BindSolve currentQuiz
         {
             get
@@ -91,7 +94,6 @@ namespace QuizRozwiazywanie
                 }
             }
         }
-        public string startstop = "Start";
         public Dictionary<char, string> answerDict
         {
             get { return selectedQuiz.AnswerList; }
@@ -133,6 +135,15 @@ namespace QuizRozwiazywanie
                 onPropertyChanged("StartStop");
             }
         }
+        public string Next
+        {
+            get { return next; }
+            set
+            {
+                next = value;
+                onPropertyChanged("Next");
+            }
+        }
         public ObservableCollection<string> listaout
         {
             get { return listanazw; }
@@ -160,10 +171,7 @@ namespace QuizRozwiazywanie
 
         #endregion
 
-        #region
-        ///<summary>
-        ///przyporzadkowanie funkcji do komendy
-        ///</summary>
+        #region przyporzadkowanie funkcji do komendy
         public RelayCommand Next_Click
         {
             get
@@ -199,31 +207,36 @@ namespace QuizRozwiazywanie
                 {
                     startstopquiz = new RelayCommand(argument =>
                     {
-                        seconds = 0;
-                        Timer timer2 = new Timer(1000);
-                        int index = listanazw.IndexOf(quizname);
-                        inWorkQuiz = quizzes[index];
-                        timer2.Elapsed += OnTimedEvent;
-                        //pobierz wartosc startstop, w razie startu laduj quiz w razie stopu wywal
-                        BindSolve Copied = new BindSolve();
-                        Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied, timer2);
-                        string copy = States.StartOrMenu(startstop); // zmien stringa 
-                        startstop = copy;
-                        if (startstop == "Start")
-                        {
-                            timer.Stop();
-                            time = "";
-                            displayTimer = time;
+                        try {
+                            seconds = 0;
+                            Timer timer2 = new Timer(1000);
+                            int index = listanazw.IndexOf(quizname);
+                            inWorkQuiz = quizzes[index];
+                            timer2.Elapsed += OnTimedEvent;
+                            //pobierz wartosc startstop, w razie startu laduj quiz w razie stopu wywal
+                            BindSolve Copied = new BindSolve();
+                            Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied, timer2);
+                            startstop = States.StartOrMenu(startstop); // zmien stringa 
+                            next = States.Change(next);
+                            if (startstop == "Start")
+                            {
+                                timer.Stop();
+                                time = "";
+                                displayTimer = time;
+                            }
+                            timer = timer2;
+                            selectedQuiz = Copied;
+                            currentQuiz = selectedQuiz;
+                            StartStop = startstop;
+                            questionout = question;
+                            answerAout = answerA;
+                            answerBout = answerB;
+                            answerCout = answerC;
+                            answerDout = answerD;
+                            Next = next;
                         }
-                        timer = timer2;
-                        selectedQuiz = Copied;
-                        currentQuiz = selectedQuiz;
-                        StartStop = startstop;
-                        questionout = question;
-                        answerAout = answerA;
-                        answerBout = answerB;
-                        answerCout = answerC;
-                        answerDout = answerD;
+                        catch (Exception) { //nie wybrano quizu;
+                        }
 
                     }, argument => true);
                 }

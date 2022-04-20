@@ -34,6 +34,8 @@ namespace QuizRozwiazywanie
             this.current = this.questions[rng];
             this.questions.RemoveAt(rng);
         }
+
+        #region funkcje
         //sprawdz czy prawdziwe
         public bool CheckAnswer(char answer) => this.current.Answer.Contains(answer);
         //obecne pytanie
@@ -56,5 +58,6 @@ namespace QuizRozwiazywanie
             this.questions = JsonSerializer.Deserialize<List<Question>>(jsonVar);
             NextQuestion();
         }
+        #endregion
     }
 }
