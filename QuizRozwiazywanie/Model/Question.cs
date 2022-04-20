@@ -29,7 +29,7 @@ namespace QuizRozwiazywanie
         }
         public override string ToString()
         {
-            return $"Content: {Content}, Questions: {this.getQuestionsAsString()}, Answer: {this.getAnswersAsString()}";
+            return $"Content: {Content},\nQuestions:\n{this.getQuestionsAsString()}Answer: {this.getAnswersAsString()}";
         }
         private string getAnswersAsString(){
             string answers = "";
@@ -41,7 +41,7 @@ namespace QuizRozwiazywanie
         private string getQuestionsAsString(){
             string questions = "";
             foreach(char question in this.Questions.Keys){
-                questions += question + ": " + this.Questions[question] + ", ";
+                questions += question + ": " + this.Questions[question] + ",\n";
             }
             return questions;
         }
