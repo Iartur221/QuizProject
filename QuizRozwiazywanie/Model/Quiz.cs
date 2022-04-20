@@ -11,6 +11,7 @@ namespace QuizRozwiazywanie
     internal class Quiz
     {
         public string Name { get; set; }
+        //wszystkie pytania
         private List<Question> questions;
         private Question current;
         private Random random;
@@ -37,11 +38,11 @@ namespace QuizRozwiazywanie
 
         #region funkcje
         //sprawdz czy prawdziwe
-        public bool CheckAnswer(char answer) => this.current.Answer.Contains(answer);
+        public bool CheckAnswer(char answer) => this.current.Correct.Contains(answer);
         //obecne pytanie
-        public string getCurrentContent() => this.current.Content;
+        public string getCurrentContent() => this.current.QuestionString;
         //obecne odpowiedzi
-        public Dictionary<char, string> getCurrentQuestions() => this.current.Questions;
+        public Dictionary<char, string> getCurrentQuestions() => this.current.Answers;
         public void AddQuestion(Question question) => this.questions.Add(question);
         public void saveToFile(string file = "")
         {

@@ -117,11 +117,11 @@ namespace QuizRozwiazywanie
                 Question selectedValue = listBox.SelectedItem as Question;
                 if (selectedValue != null)
                 {
-                    ContentTextBox.Text = selectedValue.Content;
-                    ATextBox.Text = selectedValue.Questions['a'];
-                    BTextBox.Text = selectedValue.Questions['b'];
-                    CTextBox.Text = selectedValue.Questions['c'];
-                    DTextBox.Text = selectedValue.Questions['d'];
+                    ContentTextBox.Text = selectedValue.QuestionString;
+                    ATextBox.Text = selectedValue.Answers['a'];
+                    BTextBox.Text = selectedValue.Answers['b'];
+                    CTextBox.Text = selectedValue.Answers['c'];
+                    DTextBox.Text = selectedValue.Answers['d'];
                 }
                 else
                 {
@@ -141,8 +141,8 @@ namespace QuizRozwiazywanie
                 Question selectedValue = listBox.SelectedItem as Question;
                 if (selectedValue != null)
                 {
-                    selectedValue.Content = ContentTextBox.Text;
-                    selectedValue.Questions = prepareAnswerDict();
+                    selectedValue.QuestionString = ContentTextBox.Text;
+                    selectedValue.Answers = prepareAnswerDict();
                 if(isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox))
                     {
                         listBox.Items.Refresh();
