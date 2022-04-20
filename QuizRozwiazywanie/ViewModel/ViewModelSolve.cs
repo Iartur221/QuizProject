@@ -5,6 +5,7 @@ using System.Text;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.ObjectModel;
+using System.Timers;
 
 namespace QuizRozwiazywanie
 {
@@ -29,6 +30,10 @@ namespace QuizRozwiazywanie
         private string question;
         private RelayCommand nextQuestion;
         private RelayCommand startstopquiz;
+        private Timer timer;
+        private int seconds;
+        private int minutes;
+        string time;
 
 
 
@@ -53,6 +58,8 @@ namespace QuizRozwiazywanie
             selectedQuiz = new BindSolve();
             StartStop = startstop;
             currentQuiz = new BindSolve();
+            Timer timer = new Timer(1000);
+            
         }
 
         #region zmienne do kontroli widoku
@@ -142,6 +149,14 @@ namespace QuizRozwiazywanie
                 }
             }
         }
+        public string displayTimer
+        {
+            get { return time; }
+            set 
+            {
+                onPropertyChanged("displayTimer");
+            }
+        }
 
         #endregion
 
@@ -184,13 +199,23 @@ namespace QuizRozwiazywanie
                 {
                     startstopquiz = new RelayCommand(argument =>
                     {
+                        seconds = 0;
+                        Timer timer2 = new Timer(1000);
                         int index = listanazw.IndexOf(quizname);
                         inWorkQuiz = quizzes[index];
+                        timer2.Elapsed += OnTimedEvent;
                         //pobierz wartosc startstop, w razie startu laduj quiz w razie stopu wywal
                         BindSolve Copied = new BindSolve();
-                        Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied);
-                        string copy = States.StartOrMenu(startstop); // zmien stringa startstop
+                        Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied, timer2);
+                        string copy = States.StartOrMenu(startstop); // zmien stringa 
                         startstop = copy;
+                        if (startstop == "Start")
+                        {
+                            timer.Stop();
+                            time = "";
+                            displayTimer = time;
+                        }
+                        timer = timer2;
                         selectedQuiz = Copied;
                         currentQuiz = selectedQuiz;
                         StartStop = startstop;
@@ -204,6 +229,21 @@ namespace QuizRozwiazywanie
                 }
                 return startstopquiz;
             }
+        }
+        public void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
+        {
+            seconds += 1;
+            if (seconds == 59)
+            {
+                minutes += 1;
+                time = "Czas: " + minutes.ToString() + "m" + seconds.ToString() + "s";
+                seconds = 0;
+            }
+            else
+            {
+                time = "Czas: " + minutes.ToString() + "m" + seconds.ToString() + "s";
+            }
+            displayTimer = time;
         }
 
         #endregion

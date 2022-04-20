@@ -43,10 +43,12 @@
                    Grid.Column="1" TextWrapping="Wrap"
                    Text="{Binding questionout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                    x:Name="displayQuestion" Margin="0,60,0,0" VerticalAlignment="Top" Height="53"/>
+            <TextBlock Grid.Row="0" Grid.Column="2" TextWrapping="Wrap" Text="{Binding displayTimer, UpdateSourceTrigger=PropertyChanged}"
+                       Foreground="Yellow"/>
             <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="0" Grid.Column="0" Grid.RowSpan="2"
                       ItemsSource="{Binding Path=DataContext.listaout, RelativeSource={RelativeSource AncestorType=Window}}"
-                      SelectedItem="{Binding boundquiz, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}">
-            </ComboBox>
+                      SelectedItem="{Binding boundquiz, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+
         </Grid>
         <Grid Name ="Answers" Grid.Row="1">
             <Grid.RowDefinitions>
