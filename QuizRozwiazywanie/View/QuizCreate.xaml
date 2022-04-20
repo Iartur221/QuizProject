@@ -35,12 +35,15 @@
 
         <TextBlock Grid.Row="4" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,0" TextWrapping="Wrap">D:</TextBlock>
 
-        <local:TextBoxWithErrorProvider Grid.Row="0" x:Name="ContentTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
-
-        <local:TextBoxWithErrorProvider Grid.Row="1" x:Name="ATextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
-        <local:TextBoxWithErrorProvider Grid.Row="2" x:Name="BTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
-        <local:TextBoxWithErrorProvider Grid.Row="3" x:Name="CTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
-        <local:TextBoxWithErrorProvider Grid.Row="4" x:Name="DTextBox" Margin="114,20,60,20" Grid.ColumnSpan="2"/>
+        <local:TextBoxWithErrorProvider Grid.Row="0" Grid.Column="1" x:Name="ContentTextBox" Margin="0,20,0,20" />
+        <local:TextBoxWithErrorProvider Grid.Row="1" x:Name="ATextBox" Margin="0,20,0,20" Grid.Column="1"/>
+        <CheckBox Grid.Row="1" Grid.Column="2" Margin="20,20,0,0" x:Name="ACheckBox"></CheckBox>
+        <local:TextBoxWithErrorProvider Grid.Row="2" x:Name="BTextBox" Margin="0,20,0,20" Grid.Column="1"/>
+        <CheckBox Grid.Row="2" Grid.Column="2" Margin="20,20,0,0" x:Name="BCheckBox"></CheckBox>
+        <local:TextBoxWithErrorProvider Grid.Row="3" x:Name="CTextBox" Margin="0,20,0,20" Grid.Column="1"/>
+        <CheckBox Grid.Row="3" Grid.Column="2" Margin="20,20,0,0" x:Name="CCheckBox"></CheckBox>
+        <local:TextBoxWithErrorProvider Grid.Row="4" x:Name="DTextBox" Margin="0,20,0,20" Grid.Column="1"/>
+        <CheckBox Grid.Row="4" Grid.Column="2" Margin="20,20,0,0" x:Name="DCheckBox"></CheckBox>
 
 
 

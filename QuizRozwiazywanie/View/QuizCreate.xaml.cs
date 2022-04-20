@@ -20,7 +20,6 @@ namespace QuizRozwiazywanie
     /// </summary>
     public partial class QuizCreate : Window
     {
-        private List<int> ageList;
 
         public QuizCreate()
         {
@@ -47,20 +46,17 @@ namespace QuizRozwiazywanie
         {
             try
             {
-                if (isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox))
+                if (isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox)&
+                    (ACheckBox.IsChecked == true || BCheckBox.IsChecked == true || CCheckBox.IsChecked == true || DCheckBox.IsChecked == true))
                 {
                     List<char> test = new List<char>('a');
-                    Question question = new Question(ContentTextBox.Text.ToString(), prepareAnswerDict(), test);
+                    Question question = new Question(ContentTextBox.Text.ToString(), prepareAnswerDict(), prepareGoodAnswerList());
 
                     listBox.Items.Add(question);
 
                     listBox.SelectedItem = null;
 
-                    ContentTextBox.Text = ""; //wyczyszczenie pol po dodaniu wartości do listbox
-                    ATextBox.Text = "";
-                    BTextBox.Text = "";
-                    CTextBox.Text = "";
-                    DTextBox.Text = "";
+                    this.clearAll();
                 }
             }
             catch (Exception ex)
@@ -77,6 +73,27 @@ namespace QuizRozwiazywanie
                 { 'c', CTextBox.Text },
                 { 'd', DTextBox.Text }
             };
+            return answers;
+        }
+        private List<char> prepareGoodAnswerList()
+        {
+            List<char> answers = new List<char>();
+            if (ACheckBox.IsChecked == true)
+            {
+                answers.Add('a');
+            }
+            if (BCheckBox.IsChecked == true)
+            {
+                answers.Add('b');
+            }
+            if (CCheckBox.IsChecked == true)
+            {
+                answers.Add('c');
+            }
+            if (DCheckBox.IsChecked == true)
+            {
+                answers.Add('d');
+            }
             return answers;
         }
 
@@ -108,11 +125,7 @@ namespace QuizRozwiazywanie
                 }
                 else
                 {
-                    ContentTextBox.Text = "";
-                    ATextBox.Text = "";
-                    BTextBox.Text = "";
-                    CTextBox.Text = "";
-                    DTextBox.Text = "";
+                    this.clearAll();
                 }
             }
             catch (Exception ex)
@@ -136,11 +149,7 @@ namespace QuizRozwiazywanie
 
                         listBox.SelectedItem = null;
 
-                        ContentTextBox.Text = "";
-                        ATextBox.Text = "";
-                        BTextBox.Text = "";
-                        CTextBox.Text = "";
-                        DTextBox.Text = "";
+                        this.clearAll();
                     }
 
 
@@ -161,6 +170,18 @@ namespace QuizRozwiazywanie
             }
             tb.SetError("");
             return true;
+        }
+        private void clearAll()
+        {
+            ContentTextBox.Text = "";
+            ATextBox.Text = "";
+            BTextBox.Text = "";
+            CTextBox.Text = "";
+            DTextBox.Text = "";
+            ACheckBox.IsChecked = false;
+            BCheckBox.IsChecked = false;
+            CCheckBox.IsChecked = false;
+            DCheckBox.IsChecked = false;
         }
     }
 }
