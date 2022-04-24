@@ -35,7 +35,7 @@ namespace QuizRozwiazywanie
             this.questions.RemoveAt(rng);
         }
         //sprawdz czy prawdziwe
-        public bool CheckAnswer(char answer) => this.current.Answer.Contains(answer);
+        public bool CheckAnswer(char answer) => this.current.CheckAnswer(answer);
         //obecne pytanie
         public string getCurrentContent() => this.current.Content;
         //obecne odpowiedzi

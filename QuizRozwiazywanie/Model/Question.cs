@@ -45,6 +45,7 @@ namespace QuizRozwiazywanie
             }
             return questions;
         }
+        public bool CheckAnswer(char answer) => this.Answer.Contains(answer);
 
     }
 }
