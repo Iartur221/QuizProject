@@ -169,8 +169,8 @@ namespace QuizRozwiazywanie
                 Question selectedValue = listBox.SelectedItem as Question;
                 if (selectedValue != null)
                 {
-                    selectedValue.Content = ContentTextBox.Text;
-                    selectedValue.Questions = prepareAnswerDict();
+                    selectedValue.QuestionString = ContentTextBox.Text;
+                    selectedValue.Answers = prepareAnswerDict();
                 if(isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox))
                     {
                         listBox.Items.Refresh();

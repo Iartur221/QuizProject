@@ -9,39 +9,39 @@ namespace QuizRozwiazywanie
     internal class Question
     {
         //tresc pytania
-        public string Content { get; set; }
+        public string QuestionString { get; set; }
         //mozliwe odpowiedzi
-        public Dictionary<char, string> Questions { get; set; }
+        public Dictionary<char, string> Answers { get; set; }
         //czy odp prawdziwa
-        public List<char> Answer { get; set; }
+        public List<char> Correct { get; set; }
 
-        public Question(string content, Dictionary<char, string> questions, List<char> answer)
+        public Question(string questionstring, Dictionary<char, string> answers, List<char> Correct)
         {
-            this.Answer = answer;
-            this.Content = content;
-            this.Questions = questions;
+            this.Correct = Correct;
+            this.QuestionString = questionstring;
+            this.Answers = answers;
         }
         public Question()
         {
-            this.Answer = new List<char>();
-            this.Content = string.Empty;
-            this.Questions = new Dictionary<char, string>();
+            this.Correct = new List<char>();
+            this.QuestionString = string.Empty;
+            this.Answers = new Dictionary<char, string>();
         }
         public override string ToString()
         {
-            return $"Content: {Content},\nQuestions:\n{this.getQuestionsAsString()}Answer: {this.getAnswersAsString()}";
+            return $"Content: {QuestionString},\nQuestions:\n{this.getQuestionsAsString()}Correct: {this.getCorrectsAsString()}";
         }
-        private string getAnswersAsString(){
-            string answers = "";
-            foreach(char answer in this.Answer){
-                answers += answer;
+        private string getCorrectsAsString(){
+            string Corrects = "";
+            foreach(char Correct in this.Correct){
+                Corrects += Correct;
             }
-            return answers;
+            return Corrects;
         }
         private string getQuestionsAsString(){
             string questions = "";
-            foreach(char question in this.Questions.Keys){
-                questions += question + ": " + this.Questions[question] + ",\n";
+            foreach(char question in this.Answers.Keys){
+                questions += question + ": " + this.Answers[question] + ",\n";
             }
             return questions;
         }

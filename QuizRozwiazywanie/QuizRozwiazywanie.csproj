@@ -247,7 +247,6 @@
       <DependentUpon>TextBoxWithErrorProvider.xaml</DependentUpon>
     </Compile>
     <Compile Include="ViewModel\Base\ChangeProperty.cs" />
-    <Compile Include="ViewModel\BindCreate.cs" />
     <Compile Include="ViewModel\BindSolve.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
     <Compile Include="SaveDialog.xaml.cs">

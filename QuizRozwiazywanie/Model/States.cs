@@ -24,9 +24,17 @@ namespace QuizRozwiazywanie
         {
             if (content == "Start")
             {
-                return content = "Stop";}
-             return content = "Start";
+                return content = "Stop";
+            }
+            return content = "Start";
         }
+        public static string Change(string con)
+        {
+            if (con == "")
+                return con = "Next";
+            return con = "";
+        }
+
 
         public static BindSolve Changestartbutton(string content, BindSolve selected, BindSolve current, Timer timer)
         {
