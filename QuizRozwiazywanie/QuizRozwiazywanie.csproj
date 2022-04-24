@@ -250,6 +250,9 @@
     <Compile Include="ViewModel\BindCreate.cs" />
     <Compile Include="ViewModel\BindSolve.cs" />
     <Compile Include="ViewModel\Base\RelayCommand.cs" />
+    <Compile Include="SaveDialog.xaml.cs">
+      <DependentUpon>SaveDialog.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\ViewModelSolve.cs" />
     <Compile Include="View\QuizCreate.xaml.cs">
       <DependentUpon>QuizCreate.xaml</DependentUpon>
@@ -257,6 +260,10 @@
     <Compile Include="View\QuizSolve.xaml.cs">
       <DependentUpon>QuizSolve.xaml</DependentUpon>
     </Compile>
+    <Page Include="SaveDialog.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="View\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>

@@ -51,14 +51,13 @@
             <Button Content="Add" Name="addButton" Click="addButton_Click"/>
             <Button Content="Delete" Name="deleteButton" Click="deleteButton_Click"/>
             <Button Content="Modify" Name="modifyButton" Click="modifyButton_Click"/>
+            <Button Content="Save" Name="saveButton" Click="saveButton_Click"/>
         </StackPanel>
 
         <ListBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Name="listBox" Margin="10" Grid.ColumnSpan="2" SelectionChanged="listBoxSelectionChanged"/>
 
         <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,10" TextWrapping="Wrap">Wybór quizu</TextBlock>
-        <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="5" Grid.Column="0" Height="30"
-                      ItemsSource="{Binding Path=DataContext.listaout, RelativeSource={RelativeSource AncestorType=Window}}"
-                      SelectedItem="{Binding boundquiz, Mode=OneWayToSource, UpdateSourceTrigger=PropertyChanged}"/>
+        <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="5" Grid.Column="0" Height="30"/>
 
     </Grid>
 </Window>

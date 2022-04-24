@@ -27,26 +27,14 @@ namespace QuizRozwiazywanie
 
             InitializeComponent();
 
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
         }
 
-        private void OnProcessExit(object sender, EventArgs e)
-        {
-            Quiz quiz = new Quiz("asdasdasd");
-
-            foreach (Question question in listBox.Items)
-            {
-                quiz.AddQuestion(question);
-            }
-            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\test3.json";
-            quiz.saveToFile(path);
-        }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
         {
             try
             {
-                if (isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox)&
+                if (isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox) & isNoEmpty(BTextBox) & isNoEmpty(CTextBox) & isNoEmpty(DTextBox) &
                     (ACheckBox.IsChecked == true || BCheckBox.IsChecked == true || CCheckBox.IsChecked == true || DCheckBox.IsChecked == true))
                 {
                     List<char> test = new List<char>('a');
@@ -64,7 +52,7 @@ namespace QuizRozwiazywanie
                 MessageBox.Show(ex.Message);
             }
         }
-        private Dictionary<char,string> prepareAnswerDict()
+        private Dictionary<char, string> prepareAnswerDict()
         {
             Dictionary<char, string> answers = new Dictionary<char, string>
             {
@@ -107,6 +95,29 @@ namespace QuizRozwiazywanie
             {
                 MessageBox.Show(ex.Message);
             }
+        }
+        private void saveButton_Click(object sender, RoutedEventArgs e) {
+            var saveFileDialog = new SaveDialog();
+            if (saveFileDialog.ShowDialog() == true)
+            {
+                ATextBox.Text = "Dzial";
+            }
+        }
+        private void YesButton_Click(object sender, RoutedEventArgs e)
+        {
+            //InputBox.Visibility = System.Windows.Visibility.Hidden;
+            //string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\";
+            //Quiz quiz = new Quiz(InputTextBox.Text);
+            //foreach (Question question in listBox.Items)
+            //{
+            //    quiz.AddQuestion(question);
+            //}
+            //quiz.saveToFile(path + InputTextBox.Text + ".json");
+            //MessageBox.Show("Quiz saved as: " + InputTextBox.Text);
+        }
+        private void NoButton_Click(object sender, RoutedEventArgs e)
+        {
+            MessageBox.Show("Saving canceled");
         }
 
 
