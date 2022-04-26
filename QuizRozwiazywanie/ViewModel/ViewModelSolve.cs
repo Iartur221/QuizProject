@@ -32,6 +32,10 @@ namespace QuizRozwiazywanie
         private bool Dselected = false;
         private string startstop = "Start";
         private string next = "";
+        private System.Windows.Media.Brush _borderA;
+        private System.Windows.Media.Brush _borderB;
+        private System.Windows.Media.Brush _borderC;
+        private System.Windows.Media.Brush _borderD;
         //wyswietlane pytanie
         private string question;
         private RelayCommand nextQuestion;
@@ -45,6 +49,10 @@ namespace QuizRozwiazywanie
         private int seconds;
         private int minutes;
         private string time;
+        //pkt
+        private int _points;
+        private int _maxpoints;
+        private string pointsstring;
         #endregion
 
         #region konstruktor
@@ -176,6 +184,38 @@ namespace QuizRozwiazywanie
                 onPropertyChanged("displayTimer");
             }
         }
+        public System.Windows.Media.Brush borderA
+        {
+            get { return _borderA; }
+            set {  _borderA = value;
+                    onPropertyChanged("borderA");                
+            }
+        }
+        public System.Windows.Media.Brush borderB
+        {
+            get { return _borderB; }
+            set
+            {   _borderB = value;
+                onPropertyChanged("borderB");
+            }
+        }
+        public System.Windows.Media.Brush borderC
+        {
+            get { return _borderC; }
+            set
+            {   _borderC = value;
+                onPropertyChanged("borderC");
+            }
+        }
+        public System.Windows.Media.Brush borderD
+        {
+            get { return _borderD; }
+            set
+            {    _borderD = value;
+                 onPropertyChanged("borderD");
+            }
+        }
+
 
         #endregion
 
@@ -190,6 +230,7 @@ namespace QuizRozwiazywanie
                     {
                         BindSolve Copied = new BindSolve();
                         Copied = selectedQuiz;
+                        _points = States.CountPoints(Aselected, Bselected, Cselected, Dselected, _points, Copied);
                         States.NextQuestion(Copied);
                         currentQuiz = Copied;
                         questionout = question;
@@ -197,6 +238,19 @@ namespace QuizRozwiazywanie
                         answerBout = answerB;
                         answerCout = answerC;
                         answerDout = answerD;
+                        Aselected = false;
+                        Bselected = false;
+                        Cselected = false;
+                        Dselected = false;
+                        _borderA = System.Windows.Media.Brushes.Transparent;
+                        _borderB = System.Windows.Media.Brushes.Transparent;
+                        _borderC = System.Windows.Media.Brushes.Transparent;
+                        _borderD = System.Windows.Media.Brushes.Transparent;
+                        borderA = _borderA;
+                        borderB = _borderB;
+                        borderC = _borderD;
+                        borderD = _borderD;
+
                     }, argument => true);
                 }
                 return nextQuestion;
@@ -216,7 +270,9 @@ namespace QuizRozwiazywanie
                     startstopquiz = new RelayCommand(argument =>
                     {
                         try {
+                            pointsstring = "pkt: " + _points.ToString() + '/' + _maxpoints.ToString();
                             seconds = 0;
+                            _points = 0;
                             Timer timer2 = new Timer(1000);
                             int index = listanazw.IndexOf(quizname);
                             inWorkQuiz = quizzes[index];
@@ -225,12 +281,21 @@ namespace QuizRozwiazywanie
                             BindSolve Copied = new BindSolve();
                             Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied, timer2);
                             startstop = States.StartOrMenu(startstop); // zmien napis
-                            next = States.Change(next);//zmiana napisu
-                            if (startstop == "Start")
+                            next = States.Change(next, pointsstring);//zmiana napisu
+                            _maxpoints = States.calculatemax(0, Copied);
+                            if (startstop == "Start")//teraz zatrzymujemy quiz
                             {
                                 timer.Stop();
                                 time = "";
                                 displayTimer = time;
+                                _borderA = System.Windows.Media.Brushes.Transparent;
+                                _borderB = System.Windows.Media.Brushes.Transparent;
+                                _borderC = System.Windows.Media.Brushes.Transparent;
+                                _borderD = System.Windows.Media.Brushes.Transparent;
+                                Aselected = false;
+                                Bselected = false;
+                                Cselected = false;
+                                Dselected = false;
                             }
                             timer = timer2;
                             selectedQuiz = Copied;
@@ -241,6 +306,10 @@ namespace QuizRozwiazywanie
                             answerBout = answerB;
                             answerCout = answerC;
                             answerDout = answerD;
+                            borderA = _borderA;
+                            borderB = _borderB;
+                            borderC = _borderD;
+                            borderD = _borderD;
                             Next = next;
                         }
                         catch (Exception) { //nie wybrano quizu;
@@ -258,8 +327,16 @@ namespace QuizRozwiazywanie
                     questionanswerA = new RelayCommand(argument =>
                     {
                         if (Aselected == false)
+                        {
                             Aselected = true;
-                        else Aselected = false;
+                            _borderA = System.Windows.Media.Brushes.Gold;
+                        }
+                        else
+                        {
+                            Aselected = false;
+                            _borderA = System.Windows.Media.Brushes.Transparent;
+                        }
+                        borderA = _borderA;
                     }, argument => true);
                 return questionanswerA;
             }
@@ -272,8 +349,16 @@ namespace QuizRozwiazywanie
                     questionanswerB = new RelayCommand(argument =>
                     {
                         if (Bselected == false)
+                        {
                             Bselected = true;
-                        else Bselected = false;
+                            _borderB = System.Windows.Media.Brushes.Gold;
+                        }
+                        else
+                        {
+                            Bselected = false;
+                            _borderB = System.Windows.Media.Brushes.Transparent;
+                        }
+                        borderB = _borderB;
                     }, argument => true);
                 return questionanswerB;
             }
@@ -286,8 +371,16 @@ namespace QuizRozwiazywanie
                     questionanswerC = new RelayCommand(argument =>
                     {
                         if (Cselected == false)
+                        {
                             Cselected = true;
-                        else Cselected = false;
+                            _borderC = System.Windows.Media.Brushes.Gold;
+                        }
+                        else
+                        {
+                            Cselected = false;
+                            _borderC = System.Windows.Media.Brushes.Transparent;
+                        }
+                        borderC = _borderC;
                     }, argument => true);
                 return questionanswerC;
             }
@@ -300,8 +393,16 @@ namespace QuizRozwiazywanie
                     questionanswerD = new RelayCommand(argument =>
                     {
                         if (Dselected == false)
+                        {
                             Dselected = true;
-                        else Dselected = false;
+                            _borderD = System.Windows.Media.Brushes.Gold;
+                        }
+                        else
+                        {
+                            Dselected = false;
+                            _borderD = System.Windows.Media.Brushes.Transparent;
+                        }
+                        borderD = _borderD;
                     }, argument => true);
                 return questionanswerD;
             }

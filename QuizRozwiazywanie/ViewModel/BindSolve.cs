@@ -37,7 +37,16 @@ namespace QuizRozwiazywanie
         {
             return viewQuiz.Name;
         }
-
+        public int questionamount()
+        {
+            List<Question> a = viewQuiz.GetQuestions();
+            int amount = 0;
+            foreach (Question q in a)
+            {
+                amount += q.getCorrectsAsString().Length;
+            }
+            return amount;           
+        }
         public BindSolve()
         {
             viewQuiz = new Quiz();
