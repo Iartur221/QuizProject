@@ -24,22 +24,40 @@ namespace QuizRozwiazywanie
         public QuizCreate()
         {
             TextBoxWithErrorProvider.BrushForAll = Brushes.Red;
-
             InitializeComponent();
-
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+            updateComboBox();
+        }
+        public void updateComboBox()
+        {
+            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles";
+            var listanazw = new List<string>();
+            var quizzes = new List<Quiz>();
+            var lista = Directory.GetFiles(path);
+            comboboxquizlist.Items.Clear();
+            foreach (string var in lista)
+            {
+                string quizName = (System.IO.Path.GetFileName(var)).Remove(System.IO.Path.GetFileName(var).Length - 5);
+                quizzes.Add(new Quiz(quizName, var));
+                comboboxquizlist.Items.Add(quizName);
+            }
         }
 
-        private void OnProcessExit(object sender, EventArgs e)
-        {
-            Quiz quiz = new Quiz("asdasdasd");
+        private void saveButton_Click(object sender, RoutedEventArgs e) {
+            if (isNoEmpty(QuizNameBox))
+            {
+            Quiz quiz = new Quiz(QuizNameBox.Text);
 
             foreach (Question question in listBox.Items)
             {
                 quiz.AddQuestion(question);
             }
-            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\test3.json";
-            quiz.saveToFile(path);
+                string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\"+QuizNameBox.Text+".json";
+                quiz.saveToFile(path);
+                updateComboBox();
+                //this.clearAll();
+                //this.QuizNameBox.Text = "";             
+                
+            }
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)

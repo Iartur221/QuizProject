@@ -27,6 +27,12 @@ namespace QuizRozwiazywanie
             this.questions = new List<Question>();
             this.Name = name;
         }
+        public Quiz(string name, string path)
+        {
+            this.questions = new List<Question>();
+            this.Name = name;
+            this.loadFromFile(path);
+        }
         public void NextQuestion()
         {
             if (this.questions.Count == 0) return;
