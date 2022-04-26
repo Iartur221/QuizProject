@@ -26,12 +26,20 @@ namespace QuizRozwiazywanie
         private string answerB;
         private string answerC;
         private string answerD;
+        private bool Aselected = false;
+        private bool Bselected = false;
+        private bool Cselected = false;
+        private bool Dselected = false;
         private string startstop = "Start";
         private string next = "";
         //wyswietlane pytanie
         private string question;
         private RelayCommand nextQuestion;
         private RelayCommand startstopquiz;
+        private RelayCommand questionanswerA;
+        private RelayCommand questionanswerB;
+        private RelayCommand questionanswerC;
+        private RelayCommand questionanswerD;
         //timer
         private Timer timer;
         private int seconds;
@@ -216,8 +224,8 @@ namespace QuizRozwiazywanie
                             //pobierz wartosc startstop, w razie startu laduj quiz w razie stopu wywal
                             BindSolve Copied = new BindSolve();
                             Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied, timer2);
-                            startstop = States.StartOrMenu(startstop); // zmien stringa 
-                            next = States.Change(next);
+                            startstop = States.StartOrMenu(startstop); // zmien napis
+                            next = States.Change(next);//zmiana napisu
                             if (startstop == "Start")
                             {
                                 timer.Stop();
@@ -241,6 +249,61 @@ namespace QuizRozwiazywanie
                     }, argument => true);
                 }
                 return startstopquiz;
+            }
+        }
+        public RelayCommand AnswerClick_A
+        {
+            get {
+                if (questionanswerA == null)
+                    questionanswerA = new RelayCommand(argument =>
+                    {
+                        if (Aselected == false)
+                            Aselected = true;
+                        else Aselected = false;
+                    }, argument => true);
+                return questionanswerA;
+            }
+        }
+        public RelayCommand AnswerClick_B
+        {
+            get
+            {
+                if (questionanswerB == null)
+                    questionanswerB = new RelayCommand(argument =>
+                    {
+                        if (Bselected == false)
+                            Bselected = true;
+                        else Bselected = false;
+                    }, argument => true);
+                return questionanswerB;
+            }
+        }
+        public RelayCommand AnswerClick_C
+        {
+            get
+            {
+                if (questionanswerC == null)
+                    questionanswerC = new RelayCommand(argument =>
+                    {
+                        if (Cselected == false)
+                            Cselected = true;
+                        else Cselected = false;
+                    }, argument => true);
+                return questionanswerC;
+            }
+        }
+        public RelayCommand AnswerClick_D
+        {
+            get
+            {
+                if (questionanswerD == null)
+                    questionanswerD = new RelayCommand(argument =>
+                    {
+                        if (Dselected == false)
+                            Dselected = true;
+                        else Dselected = false;
+                    }, argument => true);
+                return questionanswerD;
             }
         }
         public void OnTimedEvent(Object source, System.Timers.ElapsedEventArgs e)
