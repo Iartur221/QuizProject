@@ -31,7 +31,7 @@ namespace QuizRozwiazywanie
         {
             this.questions = new List<Question>();
             this.Name = name;
-            this.loadFromFile(path);
+            this.loadFromFile(path, new Base64Coder());
         }
         public void NextQuestion()
         {
@@ -50,18 +50,16 @@ namespace QuizRozwiazywanie
         //obecne odpowiedzi
         public Dictionary<char, string> getCurrentQuestions() => this.current.Answers;
         public void AddQuestion(Question question) => this.questions.Add(question);
-        public void saveToFile(string file = "")
+        public void saveToFile(string file, ICoder<string> coder)
         {
-            if (file == "")
-                file = this.Name + ".json";
             string jsonVar = JsonSerializer.Serialize(this.questions);
+            jsonVar = coder.Encode(jsonVar);
             File.WriteAllText(file, jsonVar);
         }
-        public void loadFromFile(string file = "")
+        public void loadFromFile(string file, ICoder<string> coder)
         {
-            if (file == "")
-                file = this.Name + ".json";
             string jsonVar = File.ReadAllText(file);
+            jsonVar = coder.Decode(jsonVar);
             this.questions = JsonSerializer.Deserialize<List<Question>>(jsonVar);
         }
         public List<Question> GetQuestions() => this.questions;

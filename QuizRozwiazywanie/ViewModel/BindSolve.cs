@@ -55,6 +55,7 @@ namespace QuizRozwiazywanie
         {
             viewQuiz = new Quiz(name);
             viewQuiz.loadFromFile(path);
+            viewQuiz.loadFromFile(path, new Base64Coder());
         }
         
 
