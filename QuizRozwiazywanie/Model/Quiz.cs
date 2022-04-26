@@ -27,6 +27,12 @@ namespace QuizRozwiazywanie
             this.questions = new List<Question>();
             this.Name = name;
         }
+        public Quiz(string name, string path)
+        {
+            this.questions = new List<Question>();
+            this.Name = name;
+            this.loadFromFile(path);
+        }
         public void NextQuestion()
         {
             if (this.questions.Count == 0) return;
@@ -38,7 +44,7 @@ namespace QuizRozwiazywanie
 
         #region funkcje
         //sprawdz czy prawdziwe
-        public bool CheckAnswer(char answer) => this.current.Correct.Contains(answer);
+        public bool CheckAnswer(char answer) => this.current.CheckAnswer(answer);
         //obecne pytanie
         public string getCurrentContent() => this.current.QuestionString;
         //obecne odpowiedzi
@@ -57,8 +63,8 @@ namespace QuizRozwiazywanie
                 file = this.Name + ".json";
             string jsonVar = File.ReadAllText(file);
             this.questions = JsonSerializer.Deserialize<List<Question>>(jsonVar);
-            NextQuestion();
         }
+        public List<Question> GetQuestions() => this.questions;
         #endregion
     }
 }
