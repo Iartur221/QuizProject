@@ -61,20 +61,28 @@
                 <ColumnDefinition Width="3*"/>
             </Grid.ColumnDefinitions>
             <Button Grid.Column="0"
-                    Grid.Row="0">
+                    Grid.Row="0"
+                    BorderBrush="{Binding borderA, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding Path=DataContext.AnswerClick_A, RelativeSource={RelativeSource AncestorType=Window}}">
                 <TextBlock TextWrapping = "Wrap" Text="{Binding answerAout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
-            </Button>
 
+            </Button>
             <Button Grid.Column="2"
-                    Grid.Row="0">
+                    Grid.Row="0"
+                    BorderBrush="{Binding borderB, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding Path=DataContext.AnswerClick_B, RelativeSource={RelativeSource AncestorType=Window}}">
                 <TextBlock TextWrapping = "Wrap" Text="{Binding answerBout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
             <Button Grid.Column="0"
-                    Grid.Row="1">
+                    Grid.Row="1"
+                    BorderBrush="{Binding borderC, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding Path=DataContext.AnswerClick_C, RelativeSource={RelativeSource AncestorType=Window}}">
                 <TextBlock TextWrapping = "Wrap" Text="{Binding answerCout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
             <Button Grid.Column="2"
-                    Grid.Row="3">
+                    Grid.Row="3"
+                    BorderBrush="{Binding borderD, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
+                    Command="{Binding Path=DataContext.AnswerClick_D, RelativeSource={RelativeSource AncestorType=Window}}">
                 <TextBlock TextWrapping = "Wrap" Text="{Binding answerDout, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"/>
             </Button>
             <Button Grid.Column="1"
@@ -84,6 +92,7 @@
                     Command="{Binding Path=DataContext.StartStop_Click, RelativeSource={RelativeSource AncestorType=Window}}"/>
             <Button Grid.Column="1"
                     Grid.Row="1"
+                    FontSize="20"
                     Content ="{Binding Next, Mode=OneWay, UpdateSourceTrigger=PropertyChanged}"
                     Background="CadetBlue"
                     Command="{Binding Path=DataContext.Next_Click, RelativeSource={RelativeSource AncestorType=Window}}"/>

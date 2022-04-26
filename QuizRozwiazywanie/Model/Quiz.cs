@@ -35,7 +35,7 @@ namespace QuizRozwiazywanie
         }
         public void NextQuestion()
         {
-            if (this.questions.Count == 0) return;
+            if (this.questions.Count == 0) throw new Exception();
             random = new Random();
             int rng = this.random.Next(0, this.questions.Count);
             this.current = this.questions[rng];
