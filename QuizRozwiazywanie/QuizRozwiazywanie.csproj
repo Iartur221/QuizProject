@@ -240,6 +240,8 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Model\Base64Coder.cs" />
+    <Compile Include="Model\ICoder.cs" />
     <Compile Include="Model\Question.cs" />
     <Compile Include="Model\Quiz.cs" />
     <Compile Include="Model\States.cs" />
