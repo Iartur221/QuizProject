@@ -122,6 +122,23 @@ namespace QuizRozwiazywanie
                     BTextBox.Text = selectedValue.Answers['b'];
                     CTextBox.Text = selectedValue.Answers['c'];
                     DTextBox.Text = selectedValue.Answers['d'];
+                    if (selectedValue.CheckAnswer('a'))
+                    {
+                        ACheckBox.IsChecked = true;
+                    }
+                    if (selectedValue.CheckAnswer('b'))
+                    {
+                        BCheckBox.IsChecked = true;
+                    }
+                    if (selectedValue.CheckAnswer('c'))
+                    {
+                        CCheckBox.IsChecked = true;
+                    }
+                    if (selectedValue.CheckAnswer('d'))
+                    {
+                        DCheckBox.IsChecked = true;
+                    }
+
                 }
                 else
                 {

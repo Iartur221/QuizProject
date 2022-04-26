@@ -38,7 +38,7 @@ namespace QuizRozwiazywanie
 
         #region funkcje
         //sprawdz czy prawdziwe
-        public bool CheckAnswer(char answer) => this.current.Correct.Contains(answer);
+        public bool CheckAnswer(char answer) => this.current.CheckAnswer(answer);
         //obecne pytanie
         public string getCurrentContent() => this.current.QuestionString;
         //obecne odpowiedzi

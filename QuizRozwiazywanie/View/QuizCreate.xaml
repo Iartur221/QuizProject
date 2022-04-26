@@ -47,16 +47,16 @@
 
 
 
-        <StackPanel Grid.Row="5" Margin="57,20,57,0" Grid.ColumnSpan="3">
+        <StackPanel Grid.Row="5" Margin="7,20,57,0" Grid.ColumnSpan="2" Grid.Column="1">
             <Button Content="Add" Name="addButton" Click="addButton_Click"/>
             <Button Content="Delete" Name="deleteButton" Click="deleteButton_Click"/>
             <Button Content="Modify" Name="modifyButton" Click="modifyButton_Click"/>
+            <Button Content="Save" Name="saveButton" />
         </StackPanel>
-
-        <StackPanel Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Orientation="Vertical" Margin="10,0,0,0" Grid.ColumnSpan="2">
-            <ListBox Name="listBox" Margin="10" SelectionChanged="listBoxSelectionChanged"
-                      ScrollViewer.VerticalScrollBarVisibility="Visible"/>
-        </StackPanel>
+        <ListBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Name="listBox" Margin="10" Grid.ColumnSpan="2" SelectionChanged="listBoxSelectionChanged"/>
+        <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,10" TextWrapping="Wrap">Wybór quizu</TextBlock>
+        <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="5" Grid.Column="0" Height="30"/>
+        <local:TextBoxWithErrorProvider Grid.Row="5" Grid.Column="0" x:Name="QuizNameBox" Margin="0,80,0,20" />
 
     </Grid>
 </Window>

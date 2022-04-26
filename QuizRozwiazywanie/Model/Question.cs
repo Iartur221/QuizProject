@@ -21,6 +21,7 @@ namespace QuizRozwiazywanie
             this.QuestionString = questionstring;
             this.Answers = answers;
         }
+        public bool CheckAnswer(char answer) => this.Correct.Contains(answer);
         public Question()
         {
             this.Correct = new List<char>();
