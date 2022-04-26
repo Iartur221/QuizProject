@@ -52,7 +52,7 @@ namespace QuizRozwiazywanie
                 quiz.AddQuestion(question);
             }
                 string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\"+QuizNameBox.Text+".json";
-                quiz.saveToFile(path);
+                quiz.saveToFile(path, new Base64Coder());
                 updateComboBox();
                 this.clearAll();
                 this.QuizNameBox.Text = "";
