@@ -306,8 +306,7 @@
       <Generator>SettingsSingleFileGenerator</Generator>
       <LastGenOutput>Settings.Designer.cs</LastGenOutput>
     </None>
-    <None Include="QuizFiles\test2.json" />
-    <None Include="QuizFiles\test.json" />
+    <None Include="QuizFiles\test3.json" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

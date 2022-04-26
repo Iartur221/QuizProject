@@ -10,8 +10,7 @@ namespace QuizRozwiazywanie
     //Klasa modelu widoku udostępniąjąca widokowi odpowiednie własności 
     public class BindSolve : ChangeProperty
     {
-        private Quiz viewQuiz;
-        
+        private Quiz viewQuiz;        
         public Dictionary<char, string> AnswerList {
             get
             {
@@ -21,6 +20,10 @@ namespace QuizRozwiazywanie
         public string question
         {
             get { return viewQuiz.getCurrentContent(); }
+        }
+        public bool correct(char x)
+        {
+            return viewQuiz.CheckAnswer(x);
         }
         public void next()
         {
@@ -42,7 +45,8 @@ namespace QuizRozwiazywanie
         public BindSolve(string name, string path)
         {
             viewQuiz = new Quiz(name);
-            viewQuiz.loadFromFile(path, new Base64Coder());
+            viewQuiz.loadFromFile(path);
+            viewQuiz.NextQuestion();
         }
         
 

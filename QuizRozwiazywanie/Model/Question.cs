@@ -32,7 +32,7 @@ namespace QuizRozwiazywanie
         {
             return $"Content: {QuestionString},\nQuestions:\n{this.getQuestionsAsString()}Correct: {this.getCorrectsAsString()}";
         }
-        private string getCorrectsAsString(){
+        public string getCorrectsAsString(){
             string Corrects = "";
             foreach(char Correct in this.Correct){
                 Corrects += Correct;
