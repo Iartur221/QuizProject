@@ -17,6 +17,7 @@ namespace QuizRozwiazywanie
         private string[] lista;
         private ObservableCollection<string> listanazw;
         private string quizname;
+        private string path;
         //Stan rozwiazywanego quizu
         private BindSolve inWorkQuiz;
         //chosen quizstate
@@ -59,7 +60,7 @@ namespace QuizRozwiazywanie
 
         public ViewModelSolve()
         {
-            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles";
+            path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles";
             //wczytanie quizow z plikow do listy
             listanazw = new ObservableCollection<string>();
             quizzes = new ObservableCollection<BindSolve>();
@@ -228,28 +229,75 @@ namespace QuizRozwiazywanie
                 {
                     nextQuestion = new RelayCommand(argument =>
                     {
-                        BindSolve Copied = new BindSolve();
-                        Copied = selectedQuiz;
-                        _points = States.CountPoints(Aselected, Bselected, Cselected, Dselected, _points, Copied);
-                        States.NextQuestion(Copied);
-                        currentQuiz = Copied;
-                        questionout = question;
-                        answerAout = answerA;
-                        answerBout = answerB;
-                        answerCout = answerC;
-                        answerDout = answerD;
-                        Aselected = false;
-                        Bselected = false;
-                        Cselected = false;
-                        Dselected = false;
-                        _borderA = System.Windows.Media.Brushes.Transparent;
-                        _borderB = System.Windows.Media.Brushes.Transparent;
-                        _borderC = System.Windows.Media.Brushes.Transparent;
-                        _borderD = System.Windows.Media.Brushes.Transparent;
-                        borderA = _borderA;
-                        borderB = _borderB;
-                        borderC = _borderD;
-                        borderD = _borderD;
+                        if (startstop != "Start")
+                        {
+                            BindSolve Copied = new BindSolve();
+                            Copied = selectedQuiz;
+                            _points = States.CountPoints(Aselected, Bselected, Cselected, Dselected, _points, Copied);
+                            try
+                            {
+                                States.NextQuestion(Copied);
+                                currentQuiz = Copied;
+                                questionout = question;
+                                answerAout = answerA;
+                                answerBout = answerB;
+                                answerCout = answerC;
+                                answerDout = answerD;
+                                Aselected = false;
+                                Bselected = false;
+                                Cselected = false;
+                                Dselected = false;
+                                _borderA = System.Windows.Media.Brushes.Transparent;
+                                _borderB = System.Windows.Media.Brushes.Transparent;
+                                _borderC = System.Windows.Media.Brushes.Transparent;
+                                _borderD = System.Windows.Media.Brushes.Transparent;
+                                borderA = _borderA;
+                                borderB = _borderB;
+                                borderC = _borderD;
+                                borderD = _borderD;
+                            }
+                            catch (Exception)
+                            {
+                                quizzes.Clear();
+                                listanazw.Clear();
+                                foreach (string var in lista)
+                                {
+                                    quizzes.Add(new BindSolve(var, var));
+                                }
+                                for (int i = 0; i < lista.Length; i++)
+                                {
+                                    listanazw.Add((Path.GetFileName(lista[i])).Remove(Path.GetFileName(lista[i]).Length - 5));
+                                }
+                                var temp = new BindSolve();
+                                selectedQuiz = temp;
+                                currentQuiz = selectedQuiz;
+                                pointsstring = "pkt: " + _points.ToString() + '/' + _maxpoints.ToString();
+                                temp = States.Changestartbutton(startstop, temp);
+                                startstop = States.StartOrMenu(startstop); // zmien napis
+                                StartStop = startstop;
+                                next = States.Change(next, pointsstring);//zmiana napisu
+                                timer.Stop();
+                                displayTimer = time;
+                                _borderA = System.Windows.Media.Brushes.Transparent;
+                                _borderB = System.Windows.Media.Brushes.Transparent;
+                                _borderC = System.Windows.Media.Brushes.Transparent;
+                                _borderD = System.Windows.Media.Brushes.Transparent;
+                                borderA = _borderA;
+                                borderB = _borderB;
+                                borderC = _borderD;
+                                borderD = _borderD;
+                                Aselected = false;
+                                Bselected = false;
+                                Cselected = false;
+                                Dselected = false;
+                                Next = next;
+                                questionout = question;
+                                answerAout = answerA;
+                                answerBout = answerB;
+                                answerCout = answerC;
+                                answerDout = answerD;
+                            }
+                        }
 
                     }, argument => true);
                 }
@@ -282,11 +330,21 @@ namespace QuizRozwiazywanie
                             Copied = States.Changestartbutton(startstop, inWorkQuiz, Copied, timer2);
                             startstop = States.StartOrMenu(startstop); // zmien napis
                             next = States.Change(next, pointsstring);//zmiana napisu
-                            _maxpoints = States.calculatemax(0, Copied);
+                            _maxpoints = States.calculatemax(0, inWorkQuiz);
+                            inWorkQuiz.next();
                             if (startstop == "Start")//teraz zatrzymujemy quiz
                             {
+                                quizzes.Clear();
+                                listanazw.Clear();
+                                foreach (string var in lista)
+                                {
+                                    quizzes.Add(new BindSolve(var, var));
+                                }
+                                for (int i = 0; i < lista.Length; i++)
+                                {
+                                    listanazw.Add((Path.GetFileName(lista[i])).Remove(Path.GetFileName(lista[i]).Length - 5));
+                                }
                                 timer.Stop();
-                                time = "";
                                 displayTimer = time;
                                 _borderA = System.Windows.Media.Brushes.Transparent;
                                 _borderB = System.Windows.Media.Brushes.Transparent;
@@ -326,17 +384,20 @@ namespace QuizRozwiazywanie
                 if (questionanswerA == null)
                     questionanswerA = new RelayCommand(argument =>
                     {
-                        if (Aselected == false)
+                        if (startstop != "Start")
                         {
-                            Aselected = true;
-                            _borderA = System.Windows.Media.Brushes.Gold;
+                            if (Aselected == false)
+                            {
+                                Aselected = true;
+                                _borderA = System.Windows.Media.Brushes.Gold;
+                            }
+                            else
+                            {
+                                Aselected = false;
+                                _borderA = System.Windows.Media.Brushes.Transparent;
+                            }
+                            borderA = _borderA;
                         }
-                        else
-                        {
-                            Aselected = false;
-                            _borderA = System.Windows.Media.Brushes.Transparent;
-                        }
-                        borderA = _borderA;
                     }, argument => true);
                 return questionanswerA;
             }
@@ -348,17 +409,20 @@ namespace QuizRozwiazywanie
                 if (questionanswerB == null)
                     questionanswerB = new RelayCommand(argument =>
                     {
-                        if (Bselected == false)
+                        if (startstop != "Start")
                         {
-                            Bselected = true;
-                            _borderB = System.Windows.Media.Brushes.Gold;
+                            if (Bselected == false)
+                            {
+                                Bselected = true;
+                                _borderB = System.Windows.Media.Brushes.Gold;
+                            }
+                            else
+                            {
+                                Bselected = false;
+                                _borderB = System.Windows.Media.Brushes.Transparent;
+                            }
+                            borderB = _borderB;
                         }
-                        else
-                        {
-                            Bselected = false;
-                            _borderB = System.Windows.Media.Brushes.Transparent;
-                        }
-                        borderB = _borderB;
                     }, argument => true);
                 return questionanswerB;
             }
@@ -370,17 +434,20 @@ namespace QuizRozwiazywanie
                 if (questionanswerC == null)
                     questionanswerC = new RelayCommand(argument =>
                     {
-                        if (Cselected == false)
+                        if (startstop != "Start")
                         {
-                            Cselected = true;
-                            _borderC = System.Windows.Media.Brushes.Gold;
+                            if (Cselected == false)
+                            {
+                                Cselected = true;
+                                _borderC = System.Windows.Media.Brushes.Gold;
+                            }
+                            else
+                            {
+                                Cselected = false;
+                                _borderC = System.Windows.Media.Brushes.Transparent;
+                            }
+                            borderC = _borderC;
                         }
-                        else
-                        {
-                            Cselected = false;
-                            _borderC = System.Windows.Media.Brushes.Transparent;
-                        }
-                        borderC = _borderC;
                     }, argument => true);
                 return questionanswerC;
             }
@@ -392,17 +459,20 @@ namespace QuizRozwiazywanie
                 if (questionanswerD == null)
                     questionanswerD = new RelayCommand(argument =>
                     {
-                        if (Dselected == false)
+                        if (startstop != "Start")
                         {
-                            Dselected = true;
-                            _borderD = System.Windows.Media.Brushes.Gold;
+                            if (Dselected == false)
+                            {
+                                Dselected = true;
+                                _borderD = System.Windows.Media.Brushes.Gold;
+                            }
+                            else
+                            {
+                                Dselected = false;
+                                _borderD = System.Windows.Media.Brushes.Transparent;
+                            }
+                            borderD = _borderD;
                         }
-                        else
-                        {
-                            Dselected = false;
-                            _borderD = System.Windows.Media.Brushes.Transparent;
-                        }
-                        borderD = _borderD;
                     }, argument => true);
                 return questionanswerD;
             }

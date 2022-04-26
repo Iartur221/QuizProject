@@ -55,7 +55,6 @@ namespace QuizRozwiazywanie
         {
             viewQuiz = new Quiz(name);
             viewQuiz.loadFromFile(path);
-            viewQuiz.NextQuestion();
         }
         
 

@@ -75,6 +75,17 @@ namespace QuizRozwiazywanie
                 return current = new BindSolve();
             }
         }
+        public static BindSolve Changestartbutton(string content, BindSolve selected)
+        {
+            if (content == "Start")
+            {
+                return selected;
+            }
+            else
+            {
+                return selected = new BindSolve();
+            }
+        }
         public static int calculatemax(int maxpts, BindSolve current)
         {
             return maxpts = current.questionamount();
