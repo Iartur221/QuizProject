@@ -45,7 +45,7 @@ namespace QuizRozwiazywanie
         public BindSolve(string name, string path)
         {
             viewQuiz = new Quiz(name);
-            viewQuiz.loadFromFile(path);
+            viewQuiz.loadFromFile(path, new Base64Coder());
             viewQuiz.NextQuestion();
         }
         
