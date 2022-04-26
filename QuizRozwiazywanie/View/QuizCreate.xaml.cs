@@ -54,8 +54,9 @@ namespace QuizRozwiazywanie
                 string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\"+QuizNameBox.Text+".json";
                 quiz.saveToFile(path);
                 updateComboBox();
-                //this.clearAll();
-                //this.QuizNameBox.Text = "";             
+                this.clearAll();
+                this.QuizNameBox.Text = "";
+                this.listBox.Items.Clear();
                 
             }
         }
@@ -178,6 +179,7 @@ namespace QuizRozwiazywanie
                 {
                     selectedValue.QuestionString = ContentTextBox.Text;
                     selectedValue.Answers = prepareAnswerDict();
+                    selectedValue.Correct = prepareGoodAnswerList();
                 if(isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox))
                     {
                         listBox.Items.Refresh();
@@ -217,6 +219,21 @@ namespace QuizRozwiazywanie
             BCheckBox.IsChecked = false;
             CCheckBox.IsChecked = false;
             DCheckBox.IsChecked = false;
+        }
+
+        private void comboboxquizlist_DropDownClosed(object sender, EventArgs e)
+        {
+            if (comboboxquizlist.SelectedItem == null) return;
+            string quizName = comboboxquizlist.SelectedItem.ToString();
+            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\"+quizName+".json";
+            Quiz quiz = new Quiz(quizName, path);
+            QuizNameBox.Text = quizName;
+            listBox.Items.Clear();
+            foreach(Question question in quiz.GetQuestions())
+            {
+                listBox.Items.Add(question);
+                listBox.SelectedItem = null;
+            }
         }
     }
 }

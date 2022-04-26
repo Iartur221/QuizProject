@@ -63,8 +63,8 @@ namespace QuizRozwiazywanie
                 file = this.Name + ".json";
             string jsonVar = File.ReadAllText(file);
             this.questions = JsonSerializer.Deserialize<List<Question>>(jsonVar);
-            NextQuestion();
         }
+        public List<Question> GetQuestions() => this.questions;
         #endregion
     }
 }

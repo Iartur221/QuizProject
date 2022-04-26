@@ -55,7 +55,7 @@
         </StackPanel>
         <ListBox Grid.Row="0" Grid.Column="3" Grid.RowSpan="5" Name="listBox" Margin="10" Grid.ColumnSpan="2" SelectionChanged="listBoxSelectionChanged"/>
         <TextBlock Grid.Row="5" Grid.Column="0" TextAlignment="Center" Margin="0,20,0,10" TextWrapping="Wrap">Wybór quizu</TextBlock>
-        <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="5" Grid.Column="0" Height="30"/>
+        <ComboBox Name="comboboxquizlist" FontSize="12" Grid.Row="5" Grid.Column="0" Height="30" DropDownClosed="comboboxquizlist_DropDownClosed"/>
         <local:TextBoxWithErrorProvider Grid.Row="5" Grid.Column="0" x:Name="QuizNameBox" Margin="0,80,0,20" />
 
     </Grid>
