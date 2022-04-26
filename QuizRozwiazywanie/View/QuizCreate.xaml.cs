@@ -24,22 +24,41 @@ namespace QuizRozwiazywanie
         public QuizCreate()
         {
             TextBoxWithErrorProvider.BrushForAll = Brushes.Red;
-
             InitializeComponent();
-
-            AppDomain.CurrentDomain.ProcessExit += new EventHandler(OnProcessExit);
+            updateComboBox();
+        }
+        public void updateComboBox()
+        {
+            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles";
+            var listanazw = new List<string>();
+            var quizzes = new List<Quiz>();
+            var lista = Directory.GetFiles(path);
+            comboboxquizlist.Items.Clear();
+            foreach (string var in lista)
+            {
+                string quizName = (System.IO.Path.GetFileName(var)).Remove(System.IO.Path.GetFileName(var).Length - 5);
+                quizzes.Add(new Quiz(quizName, var));
+                comboboxquizlist.Items.Add(quizName);
+            }
         }
 
-        private void OnProcessExit(object sender, EventArgs e)
-        {
-            Quiz quiz = new Quiz("asdasdasd");
+        private void saveButton_Click(object sender, RoutedEventArgs e) {
+            if (isNoEmpty(QuizNameBox))
+            {
+            Quiz quiz = new Quiz(QuizNameBox.Text);
 
             foreach (Question question in listBox.Items)
             {
                 quiz.AddQuestion(question);
             }
-            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\test3.json";
-            quiz.saveToFile(path);
+                string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\"+QuizNameBox.Text+".json";
+                quiz.saveToFile(path);
+                updateComboBox();
+                this.clearAll();
+                this.QuizNameBox.Text = "";
+                this.listBox.Items.Clear();
+                
+            }
         }
 
         private void addButton_Click(object sender, RoutedEventArgs e)
@@ -122,6 +141,23 @@ namespace QuizRozwiazywanie
                     BTextBox.Text = selectedValue.Answers['b'];
                     CTextBox.Text = selectedValue.Answers['c'];
                     DTextBox.Text = selectedValue.Answers['d'];
+                    if (selectedValue.CheckAnswer('a'))
+                    {
+                        ACheckBox.IsChecked = true;
+                    }
+                    if (selectedValue.CheckAnswer('b'))
+                    {
+                        BCheckBox.IsChecked = true;
+                    }
+                    if (selectedValue.CheckAnswer('c'))
+                    {
+                        CCheckBox.IsChecked = true;
+                    }
+                    if (selectedValue.CheckAnswer('d'))
+                    {
+                        DCheckBox.IsChecked = true;
+                    }
+
                 }
                 else
                 {
@@ -143,6 +179,7 @@ namespace QuizRozwiazywanie
                 {
                     selectedValue.QuestionString = ContentTextBox.Text;
                     selectedValue.Answers = prepareAnswerDict();
+                    selectedValue.Correct = prepareGoodAnswerList();
                 if(isNoEmpty(ContentTextBox) & isNoEmpty(ATextBox)& isNoEmpty(BTextBox)& isNoEmpty(CTextBox)& isNoEmpty(DTextBox))
                     {
                         listBox.Items.Refresh();
@@ -182,6 +219,21 @@ namespace QuizRozwiazywanie
             BCheckBox.IsChecked = false;
             CCheckBox.IsChecked = false;
             DCheckBox.IsChecked = false;
+        }
+
+        private void comboboxquizlist_DropDownClosed(object sender, EventArgs e)
+        {
+            if (comboboxquizlist.SelectedItem == null) return;
+            string quizName = comboboxquizlist.SelectedItem.ToString();
+            string path = Directory.GetCurrentDirectory().Replace("bin\\Debug", "").Replace("bin\\Release", "") + "QuizFiles\\"+quizName+".json";
+            Quiz quiz = new Quiz(quizName, path);
+            QuizNameBox.Text = quizName;
+            listBox.Items.Clear();
+            foreach(Question question in quiz.GetQuestions())
+            {
+                listBox.Items.Add(question);
+                listBox.SelectedItem = null;
+            }
         }
     }
 }
